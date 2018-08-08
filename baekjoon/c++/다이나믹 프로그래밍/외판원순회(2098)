@@ -1,0 +1,59 @@
+#include<iostream>
+#include<algorithm>
+#include<string.h>
+
+using namespace std;
+
+#define MAX 17
+#define INF 987654321
+
+int map[20][20];
+int dp[20][(1 << (MAX+1))];
+int N;
+int start = 0;
+int func(int cur, int visit)
+{
+	if (visit == ((1 << N) - 1))
+	{
+		if (map[cur][0] == 0)
+			return INF;
+		else
+			return map[cur][0];
+	}
+
+	int &ret = dp[cur][visit];
+		
+	if (ret != -1)
+		return dp[cur][visit];
+
+	ret = INF;
+
+	for (int n = 0; n < N; n++)
+	{
+		if (map[cur][n] != 0 && (visit & (1 << n)) == 0)
+		{
+			ret = min(ret, map[cur][n] + func(n, visit | (1 << n)));
+		}
+	}
+	return ret;
+}
+
+int main(void)
+{
+	cin >> N;
+	for (int n = 0; n < N; n++)
+	{
+		for (int m = 0; m < N; m++)
+		{
+			cin >> map[n][m];
+		}
+	}
+	int ans = INF;
+
+	for (int n = 0; n < N; n++)
+		memset(dp[n],-1,sizeof(dp[n]));
+
+	ans = min(ans, func(0,1));
+	cout << ans << endl;
+	return 0;
+}
