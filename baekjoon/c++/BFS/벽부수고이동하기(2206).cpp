@@ -22,6 +22,8 @@ int dir[4][2] = { {-1,0},{1,0},{0,-1},{0,1} };
 int N, M;
 int main(void)
 {
+	ios::sync_with_stdio(false);
+	cin.tie(0);
 	cin >> N >> M;
 	for (int n = 0; n < N; n++)
 	{
@@ -67,7 +69,7 @@ int main(void)
 				{
 					if (!flag)
 					{
-						if (visit[ny][nx][0] >= visit[y][x][0] + 1)
+						if (visit[ny][nx][0] > visit[y][x][0] + 1)
 						{
 							visit[ny][nx][0] = visit[y][x][0] + 1;
 							q.push(Node(ny,nx,flag));
@@ -75,7 +77,7 @@ int main(void)
 					}
 					else
 					{
-						if (visit[ny][nx][1] >= visit[y][x][1] + 1)
+						if (visit[ny][nx][1] > visit[y][x][1] + 1)
 						{
 							visit[ny][nx][1] = visit[y][x][1] + 1;
 							q.push(Node(ny,nx,flag));
@@ -83,7 +85,7 @@ int main(void)
 					}
 				}
 
-				if (map[ny][nx] == 1 && !flag && visit[ny][nx][1] >= visit[y][x][0] + 1)
+				if (map[ny][nx] == 1 && !flag && visit[ny][nx][1] > visit[y][x][0] + 1)
 				{
 					visit[ny][nx][1] = visit[y][x][0] + 1;
 					q.push(Node(ny,nx,true));
