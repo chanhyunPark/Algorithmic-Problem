@@ -1,0 +1,55 @@
+#include<stdio.h>
+#include<vector>
+
+using namespace std;
+
+int N, M, K;
+int main(void)
+{
+	while (true)
+	{
+		scanf("%d %d %d", &N, &K, &M);
+
+		if (N == 0 && K == 0 && M == 0)
+			break;
+
+		vector<int> stones;
+
+		for (int m = M; m <= N; m++)
+			stones.push_back(m);
+
+		for (int i = 1; i < M; i++)
+			stones.push_back(i);
+
+
+		vector<int>::iterator it = stones.begin();
+
+		while (true)
+		{
+			if (stones.size() == 1)
+			{
+				break;
+			}
+
+			int point = 0;
+			int kill = K - 1;
+
+			for (int n = 0; n < N - 1; n++)
+			{
+				if (stones.size() <= point)
+					point %= stones.size();
+
+				if (stones.size() == 1)
+					break;
+
+				stones.erase((stones.begin() + point));
+				point += kill;
+			}
+		}
+
+		printf("%d\n", stones.front());
+		stones.clear();
+	}
+
+	return 0;
+}
