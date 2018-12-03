@@ -13,7 +13,7 @@ int main(void)
 		if (N == 0 && K == 0 && M == 0)
 			break;
 
-		vector<int> stones;
+		vector<int> stones;w
 
 		for (int m = M; m <= N; m++)
 			stones.push_back(m);
