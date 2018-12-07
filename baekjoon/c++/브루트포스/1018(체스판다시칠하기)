@@ -1,0 +1,54 @@
+#include<iostream>
+#include<string>
+
+using namespace std;
+
+int N, M;
+char map[51][51];
+int dir[4][2] = { {-1,0},{1,0},{0,-1},{0,1} };
+int main(void)
+{
+	cin >> N >> M;
+
+	for (int n = 0; n < N; n++)
+	{
+		cin >> map[n];
+	}
+
+	int min = 987654321;
+	int cnt[3] = {0, 0, 0};
+	for (int n = 0; n <=  N - 8; n++)
+	{
+		for (int m = 0; m <= M - 8; m++)
+		{
+			cnt[0] = cnt[1] = 0;
+			for (int i = n; i < n + 8; i++)
+			{
+				for (int j = m; j < m + 8; j++)
+				{
+					if ((i + j) % 2)
+					{
+						if (map[i][j] == 'B')
+							cnt[0]++;
+						else
+							cnt[1]++;
+					}
+					else
+					{
+						if (map[i][j] == 'W')
+							cnt[0]++;
+						else
+							cnt[1]++;
+					}
+				}
+			}
+
+			cnt[2] = cnt[0] < cnt[1] ? cnt[0] : cnt[1];
+			min = min < cnt[2] ? min : cnt[2];
+
+		}
+	}
+
+	cout << min << "\n";
+	return 0;
+}
